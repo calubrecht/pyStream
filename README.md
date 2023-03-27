@@ -7,7 +7,7 @@ constructor. The Stream constructor then has methods for filter/map that take on
 Stream object for further functions to be called.
 
 Usage:
-
+```python
 from pystream import Stream
 
 class sec:
@@ -32,3 +32,4 @@ def clomp(s1, s2):
 liveItems = Stream(inventory).filter(isLive).map(toString)
 
 print (list(liveItems))
+```
