@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pystream"
+version = "0.0.1"
+authors = [ { name ="Chad Lubrecht", email = "chad@calubrecht.us"} ]
+description = "Very simple module to allow python map/filter functions to be chained"
+readme = "README.md"
+requies-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/calubrecht/pyStream"
