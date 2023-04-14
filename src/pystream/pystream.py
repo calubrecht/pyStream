@@ -1,5 +1,6 @@
 from functools import reduce
 from itertools import groupby
+from itertools import chain
 
 def terminalMethod(func):
     def wrapper(*args):
@@ -32,6 +33,11 @@ class Stream:
         newStreamable = filter(filterFunc, self.streamable)
         return Stream(newStreamable)
 
+    def zip(self, *otherStreams):
+        streamables = [self.streamable,] + list(Stream(otherStreams).map(lambda s : s.streamable))
+        newStreamable = zip(*streamables)
+        return Stream(newStreamable)
+
     @terminalMethod
     def group(self, keyFunc):
         grouped = {}
@@ -49,3 +55,11 @@ class Stream:
 
     def close(self):
         self.streamable = []
+
+
+def zipStreams(*streams):
+    if len(streams) == 0:
+        return Stream([])
+    if len(streams) == 1:
+        return streams[0]
+    return streams[0].zip(*streams[1:])
