@@ -71,3 +71,39 @@ class TestPystream(unittest.TestCase):
     self.assertEqual(3, len(zipped))
     self.assertEqual((23, "A", 3), zipped[0])
     self.assertEqual((97, "C", 1), zipped[2])
+
+  def test_lazyExecution(self):
+    was_run_a = False
+    was_run_b = False
+
+    def filterA(i):
+      nonlocal was_run_a
+      was_run_a = True
+      return True
+    def filterB(i):
+      nonlocal was_run_b
+      was_run_b = True
+      return True
+
+    stream1 = Stream(('A', 'B', 'C'))
+    stream2 = Stream((1, 2, 3))
+
+    out1 = stream1.filter(filterA)
+
+    self.assertFalse(was_run_a)
+
+    list(out1)
+
+    self.assertTrue(was_run_a)
+
+    was_run_a = False
+
+    zippedOut = zipStreams(stream1.filter(filterA), stream2.filter(filterB))
+
+    self.assertFalse(was_run_a)
+    self.assertFalse(was_run_b)
+
+    list(zippedOut)
+
+    self.assertTrue(was_run_a)
+    self.assertTrue(was_run_b)
