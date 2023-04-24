@@ -1,4 +1,9 @@
-pystream
+.. -*- mode: rst; coding: utf-8 -*-
+
+
+==============================================================================
+pystream - Stream class to chain functional programing built-ins
+==============================================================================
 
 This is a very simple module designed to allow python map/filter functions to be chained together.
 
