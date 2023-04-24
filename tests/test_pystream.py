@@ -118,3 +118,15 @@ class TestPystream(unittest.TestCase):
         with self.assertRaises(TypeError) as te:
             zip_streams(s1, s2)
         self.assertEqual("Input <21> is not an iterable", te.exception.args[0])
+
+    def testBigStream(self):
+        input_list = list(range(0,550))
+        evens = list(Stream(input_list).filter(lambda n : n % 2 == 0))
+        self.assertEqual(275, len(evens))
+        even_squares = list(Stream(input_list).filter(lambda n : n % 2 == 0).map(lambda n : n * n))
+        self.assertEqual(275, len(even_squares))
+
+    def testEmptyFirst(self):
+        stream = Stream(range(0,100)).filter(lambda a: a > 200)
+        self.assertEquals(None, stream.first())
+
