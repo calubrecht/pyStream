@@ -10,7 +10,7 @@ def usage():
     sys.exit(1)
 
 
-versionRE='^__version__\\s*=\\s\"(.*)\"\\s*'
+versionRE='^version\\s*=\\s\"(.*)\"\\s*'
 fileName = 'src/pystream/__about__.py'
 
 def getCurrentVersion():

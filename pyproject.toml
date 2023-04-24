@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "pystream"
 dynamic = ["version"]
 description = ''
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.7"
 license = "MIT"
 keywords = []
