@@ -35,12 +35,20 @@ class TestPystream(unittest.TestCase):
             next(stream)
 
     def test_groupStream(self):
-        data = (SimpleData("Bread", "Food", 23), SimpleData("Corn", "Food", 11), SimpleData("Robot", "Toy", 3))
+        data = (SimpleData("Bread", "Food", 23), SimpleData("Corn", "Food", 11), SimpleData("Robot", "Toy", 3), SimpleData("Pizza", "Food", 8))
         groups = Stream(data).group(lambda d: d.classification)
 
         self.assertEqual(2, len(groups))
-        self.assertEqual(2, len(groups["Food"]))
+        self.assertEqual(3, len(groups["Food"]))
         self.assertEqual(1, len(groups["Toy"]))
+
+    def test_groupStreamWithValueFunc(self):
+        data = [[1, 'a'], [1, 'b'], [2, 'c']]
+        groups = Stream(data).group(lambda d: d[0], lambda d: d[1])
+
+        self.assertEqual(2, len(groups))
+        self.assertEqual(2, len(groups[1]))
+        self.assertEqual(['a', 'b'], groups[1])
 
     def test_zip(self):
         data1 = (SimpleData("Bread", "Food", 23), SimpleData("Corn", "Food", 11), SimpleData("Robot", "Toy", 3))

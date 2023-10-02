@@ -64,7 +64,7 @@ class Stream:
         return Stream(new_streamable)
 
     @terminal_method
-    def group(self, key_func: Callable) -> dict:
+    def group(self, key_func: Callable, val_func: Callable = lambda x:x) -> dict:
         '''
         Call the itertools.group_by function on the wrapper iterable with the supplied key_func and return a dict
         mapping keys to list of values and closes the stream
@@ -72,8 +72,8 @@ class Stream:
         :return: dict of key to list of values
         '''
         grouped = {}
-        for k, g in groupby(self.streamable, key_func):
-            grouped[k] = list(g)
+        for k, g in groupby(sorted(self.streamable, key=key_func), key_func):
+            grouped[k] = list(map(val_func, g))
         return grouped
 
     @terminal_method
